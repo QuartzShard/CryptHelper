@@ -147,10 +147,10 @@ function AskForInputs() {
 
     while [[ $encDev == "" && $scriptMode == 1 ]]; do
         clear
-        echo "Enter a block device"
-        echo "Example: /dev/sde"
+        echo "Enter the path to the encrypted volume"
+        echo "Example: /dev/sde1, /dev/nvme0n1p2"
         echo
-        echo -n "Device: "
+        echo -n "Path: "
         read -r encDev
     done
 
