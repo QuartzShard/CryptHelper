@@ -147,8 +147,8 @@ function AskForInputs() {
 
     while [[ $encDev == "" && $scriptMode == 1 ]]; do
         clear
-        echo "Enter the path to the encrypted volume"
-        echo "Example: /dev/sde1, /dev/nvme0n1p2"
+        echo "Enter the path to the encrypted volume. This can be a block device or partition"
+        echo "Example: /dev/sde, /dev/nvme0n1p2"
         echo
         echo -n "Path: "
         read -r encDev
@@ -165,11 +165,14 @@ function AskForInputs() {
 
     while [[ $mountPoint == "" ]]; do
         clear
-        echo "Enter the mount point"
+        echo "Enter the mount point (Defaults to /mnt/$mapperName)"
         echo "Example: /mnt/crypt"
         echo
         echo -n "Mount point: "
         read -r mountPoint
+        if [[ $mountPoint == "" ]]; then
+            mountPoint="/mnt/$mapperName"
+        fi
     done
 
     clear
