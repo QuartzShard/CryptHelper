@@ -122,9 +122,9 @@ function SanityCheck() {
             privUtil="doas "
         fi
     else
-        if [[ $(which doas | grep -c "not found") == 0 ]]; then # prefer doas
+        if [[ $(which doas 2>&1 | grep -c "which: no") == 0 ]]; then # prefer doas
             privUtil="doas " # it is less common, so user will probably want to use it over sudo
-        elif [[ $(which sudo | grep -c "not found") == 0 ]]; then
+        elif [[ $(which sudo 2>&1 | grep -c "which: no") == 0 ]]; then
             privUtil="sudo "
         fi
     fi
@@ -147,10 +147,10 @@ function AskForInputs() {
 
     while [[ $encDev == "" && $scriptMode == 1 ]]; do
         clear
-        echo "Enter a block device"
-        echo "Example: /dev/sde"
+        echo "Enter the path to the encrypted volume"
+        echo "Example: /dev/sde1, /dev/nvme0n1p2"
         echo
-        echo -n "Device: "
+        echo -n "Path: "
         read -r encDev
     done
 
@@ -197,7 +197,7 @@ function AskForInputs() {
 
 # Decrypts the device $1 to the mapper $2, then mounts it at $3
 function CryptOpen() {
-    commandToRun="${privUtil}cryptsetup luksOpen $1 $2 && ${privUtil}mount /dev/mapper/$2 $3"
+    commandToRun="${privUtil}cryptsetup luksOpen $1 $2 && ${privUtil}mkdir -p $3 && ${privUtil}mount /dev/mapper/$2 $3"
     echo "Mounting using the following command:"
     echo
     echo "$commandToRun"
