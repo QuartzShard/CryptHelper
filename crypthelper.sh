@@ -19,7 +19,7 @@ scriptMode=2
 function PrintHelp() {
     echo "A shell script to streamline the use of cryptsetup"
     echo
-    echo "Usage: crypthelp [options]"
+    echo "Usage: crypthelper [options]"
     echo "Options:"
     echo "-d     Specify the device name (eg: /dev/sda)"
     echo "-D     Bypasses the dependancy check (careful!)"
