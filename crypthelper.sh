@@ -122,9 +122,9 @@ function SanityCheck() {
             privUtil="doas "
         fi
     else
-        if [[ $(which doas | grep -c "not found") == 0 ]]; then # prefer doas
+        if [[ $(which doas 2>&1 | grep -c "which: no") == 0 ]]; then # prefer doas
             privUtil="doas " # it is less common, so user will probably want to use it over sudo
-        elif [[ $(which sudo | grep -c "not found") == 0 ]]; then
+        elif [[ $(which sudo 2>&1 | grep -c "which: no") == 0 ]]; then
             privUtil="sudo "
         fi
     fi
