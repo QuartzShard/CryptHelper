@@ -197,7 +197,7 @@ function AskForInputs() {
 
 # Decrypts the device $1 to the mapper $2, then mounts it at $3
 function CryptOpen() {
-    commandToRun="${privUtil}cryptsetup luksOpen $1 $2 && ${privUtil}mkdir -p $3 && ${privUtil}mount /dev/mapper/$2 $3"
+    commandToRun="${privUtil}cryptsetup open $1 $2 && ${privUtil}mkdir -p $3 && ${privUtil}mount /dev/mapper/$2 $3"
     echo "Mounting using the following command:"
     echo
     echo "$commandToRun"
@@ -208,7 +208,7 @@ function CryptOpen() {
 
 # Unmounts device at $1, then closes the mapper $2
 function CryptClose() {
-    commandToRun="${privUtil}umount $1 && ${privUtil}cryptsetup luksClose $2"
+    commandToRun="${privUtil}umount $1 && ${privUtil}cryptsetup close $2"
     echo "Unmounting using the following command:"
     echo
     echo "$commandToRun"
